@@ -1,6 +1,7 @@
 from turtle import Turtle, Screen
 import time
 
+# Constants
 UP = 90
 LEFT = 180
 DOWN = 270
@@ -11,6 +12,7 @@ SNAKE_COL = "white"
 class Snake:
 
     def __init__(self, size=3):
+        """Initialise the snake object"""
         self.nagini = []
         self.size = size
         for i in range(self.size):
@@ -61,8 +63,17 @@ class Snake:
         for donatello in self.nagini:   donatello.color(SNAKE_COL)
         screen.update()
 
+    # Currently unused user controls
+    def jump_up(self): self.dir_move(0, 1)
+    def jump_down(self): self.dir_move(0, -1)
+    def jump_left(self): self.dir_move(-1, 0)
+    def jump_right(self): self.dir_move(1, 0)
+
     def dir_move(self, x, y):
-        for i in range(len(self.nagini) - 1):
-            self.nagini[i].setpos(self.nagini[i + 1].pos())
+        """Move snake without changing heading"""
+        # for i in range(len(self.nagini) - 1):
+        #     self.nagini[i].setpos(self.nagini[i + 1].pos())
         snake_head = self.nagini[len(self.nagini) - 1]
         snake_head.setpos(snake_head.xcor() + x * 20, snake_head.ycor() + y * 20)
+        print("234")
+        print(snake_head.pos())

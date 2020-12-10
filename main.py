@@ -16,6 +16,9 @@ screen.onkey(snake.down, "Down")
 screen.onkey(snake.left, "Left")
 screen.onkey(snake.right, "Right")
 
+def esc_game():  screen.bye()
+screen.onkey(esc_game, "Escape")
+
 game_on = True
 while game_on:
     screen.update()

@@ -40,7 +40,7 @@ hunger = 0
 while game_on:
     hunger += 1
     screen.update()
-    time.sleep(0.05)
+    time.sleep(0.1)
     snake.move(screen_size)
     if hunger > 100:
         pizza.refresh(screen_size)

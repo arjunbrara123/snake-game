@@ -1,14 +1,19 @@
-import time
 from turtle import Screen
 from snake import Snake
+from food import Food
+import time
 
-# Initialise game setup
+# Initialise the screen and environment
+screen_size = 600
 screen = Screen()
-screen.setup(width=600, height=600)
+screen.setup(width=screen_size, height=screen_size)
 screen.bgcolor("black")
 screen.title("My Snake Game")
 screen.tracer(0)
+
+# Initialise game componenets
 snake = Snake()
+pizza = Food(600)
 
 # Set keyboard game controls
 screen.listen()
@@ -27,5 +32,8 @@ while game_on:
     screen.update()
     time.sleep(0.1)
     snake.move()
+
+    # Detect collision with food
+
 
 screen.exitonclick()

@@ -14,9 +14,10 @@ screen.title("My Snake Game")
 screen.tracer(0)
 scoreboard = Scoreboard(screen_size)
 
-# Initialise game componenets
-snake = Snake()
-pizza = Food(600)
+# Initialise game components
+snake = Snake()     #Player snake
+# basilisk = Snake()  #Enemy (Computer) snake
+pizza = Food(screen_size)
 
 # Set keyboard game controls
 screen.listen()
@@ -31,16 +32,18 @@ screen.onkey(esc_game, "Escape")
 
 # Start the game running
 game_on = True
-while game_on:
-    screen.update()
-    time.sleep(0.1)
-    snake.move(0)
+hunger = 0
 
-    # Detect collision with food
-    if snake.head.distance(pizza) <= 15:
+while game_on:
+    hunger += 1
+    screen.update()
+    time.sleep(0.05)
+    snake.move(screen_size)
+    if hunger > 80:
         pizza.refresh(screen_size)
-        score += 1
-        scoreboard.refresh(score, screen_size)
+        hunger = 0
+
+    #basilisk.move(screen_size)
 
     # Detect collision with self
     for donatello in range(len(snake.nagini) - 1):
@@ -48,5 +51,13 @@ while game_on:
         if snake.head.distance(donatello) < 10:
             scoreboard.game_over()
             game_on = False
+
+    # Detect collision with food
+    if snake.head.distance(pizza) <= 15:
+        pizza.refresh(screen_size)
+        score += 1
+        scoreboard.refresh(score, screen_size)
+        snake.grow()
+        hunger = 0
 
 screen.exitonclick()

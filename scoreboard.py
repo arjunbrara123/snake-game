@@ -14,7 +14,7 @@ class Scoreboard(Turtle):
 
     def refresh(self, score, screen_size):
         self.clear()
-        self.goto(0, (screen_size / 2) - 40)
+        self.goto(0, (screen_size / 2) - 30)
         self.write("Score = " + str(score), True, align="center", font=FONT)
 
     def game_over(self):

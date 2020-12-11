@@ -1,6 +1,7 @@
 from turtle import Turtle
 import random
 
+cols = ["red", "orange", "yellow", "green", "blue"]
 
 class Food(Turtle):
 
@@ -14,7 +15,8 @@ class Food(Turtle):
         self.refresh(screen_size)
 
     def refresh(self, screen_size):
-        edge_limit = (screen_size / 2) - 20
+        edge_limit = (screen_size / 2) - 30
         rand_x = random.randint(-edge_limit, edge_limit)
         rand_y = random.randint(-edge_limit, edge_limit)
         self.goto(rand_x, rand_y)
+        self.color(random.choice(cols))

@@ -41,10 +41,12 @@ while game_on:
         pizza.refresh(screen_size)
         score += 1
         scoreboard.refresh(score, screen_size)
-        print("Michelangelo would love this!")
-        if score > 3:
+
+    # Detect collision with self
+    for donatello in range(len(snake.nagini) - 1):
+        donatello = snake.nagini[donatello]
+        if snake.head.distance(donatello) < 10:
             scoreboard.game_over()
-            screen.update()
             game_on = False
 
 screen.exitonclick()

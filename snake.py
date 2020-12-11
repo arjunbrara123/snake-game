@@ -16,14 +16,10 @@ class Snake:
         self.nagini = []
         self.size = size
         for i in range(self.size):
-            donatello = Turtle(shape="square")
-            donatello.color(SNAKE_COL)
-            donatello.shapesize(1)
-            donatello.penup()
-            self.nagini.append(donatello)
+            self.grow()
         self.head = self.nagini[len(self.nagini) - 1]  # Set the lead turtle as the snake 'head'
 
-    def move(self):
+    def move(self, add=0):
         """Move the entire snake forward"""
         for donatello in range(len(self.nagini) - 1):
             self.nagini[donatello].setpos(self.nagini[donatello + 1].pos())
@@ -32,6 +28,18 @@ class Snake:
         if abs(donatello.xcor()) >= 300: donatello.setx(-donatello.xcor())
         if abs(donatello.ycor()) >= 300: donatello.sety(-donatello.ycor())
         donatello.forward(20)
+
+    # Function to grow the snake
+    def grow(self):
+        donatello = Turtle(shape="square")
+        donatello.color(SNAKE_COL)
+        donatello.shapesize(1)
+        donatello.penup()
+        # self.head = self.nagini[len(self.nagini) - 1]
+        # if len(self.nagini) > 0:
+        #     donatello.setpos(self.head.position)
+        #     donatello.setheading(self.head.heading)
+        self.nagini.append(donatello)
 
     # Functions to turn the snake in a different direction
     def up(self):       self.move_dir(UP)

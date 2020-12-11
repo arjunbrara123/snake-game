@@ -41,7 +41,6 @@ while game_on:
         pizza.refresh(screen_size)
         score += 1
         scoreboard.refresh(score, screen_size)
-        # snake.grow()
         print("Michelangelo would love this!")
         if score > 3:
             scoreboard.game_over()

@@ -15,7 +15,7 @@ screen.tracer(0)
 scoreboard = Scoreboard(screen_size)
 
 # Initialise game components
-snake = Snake()     #Player snake
+snake = Snake()  # Player snake
 # basilisk = Snake()  #Enemy (Computer) snake
 pizza = Food(screen_size)
 
@@ -26,8 +26,11 @@ screen.onkey(snake.down, "Down")
 screen.onkey(snake.left, "Left")
 screen.onkey(snake.right, "Right")
 
+
 # Give the user a key to quit the game
 def esc_game():  screen.bye()
+
+
 screen.onkey(esc_game, "Escape")
 
 # Start the game running
@@ -43,7 +46,7 @@ while game_on:
         pizza.refresh(screen_size)
         hunger = 0
 
-    #basilisk.move(screen_size)
+    # basilisk.move(screen_size)
 
     # Detect collision with self
     for donatello in range(len(snake.nagini) - 1):

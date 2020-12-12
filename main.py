@@ -68,10 +68,16 @@ while game_on:
             game_on = False
 
     # Detect collision with food
-    if snake.head.distance(pizza) <= 15:
+    if snake.head.distance(pizza) <= 20:
+        if pizza.color()[0] != "red":
+            print("Yum!")
+            score += 1
+            scoreboard.refresh(score, screen_size)
+        else:
+            print("You ate poison!")
+            score = int(score/2)
+            scoreboard.refresh(score, screen_size, col="red")
         pizza.refresh(screen_size)
-        score += 1
-        scoreboard.refresh(score, screen_size)
         snake.grow()
         hunger = 0
 

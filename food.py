@@ -20,3 +20,7 @@ class Food(Turtle):
         rand_y = random.randint(-edge_limit, edge_limit)
         self.goto(rand_x, rand_y)
         self.color(random.choice(cols))
+        if self.color()[0] == "red":
+            self.shape("circle")
+        else:
+            self.shape("turtle")

@@ -12,10 +12,14 @@ class Scoreboard(Turtle):
         self.refresh(0, screen_size)
         self.speed(0)
 
-    def refresh(self, score, screen_size):
+    def refresh(self, score, screen_size, col="white"):
         self.clear()
         self.goto(0, (screen_size / 2) - 30)
-        self.write("Score = " + str(score), True, align="center", font=FONT)
+        self.color(col)
+        if col == "red":
+            self.write("Poisoned!! Score = " + str(score), True, align="center", font=FONT)
+        else:
+            self.write("Score = " + str(score), True, align="center", font=FONT)
 
     def game_over(self):
         self.goto(0, 0)

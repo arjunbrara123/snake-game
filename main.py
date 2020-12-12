@@ -14,10 +14,15 @@ screen.title("My Snake Game")
 screen.tracer(0)
 scoreboard = Scoreboard(screen_size)
 
-# Initialise game components
-snake = Snake()  # Player snake
-# basilisk = Snake()  #Enemy (Computer) snake
+# Initialise user game components
+snake = Snake(col="white")  # Player snake
 pizza = Food(screen_size)
+
+# # Initialise computer game components
+# basilisk = Snake(col="red")  #Enemy (Computer) snake
+# basilisk.jump_down()
+# basilisk.jump_down()
+# basilisk.move(screen_size)
 
 # Set keyboard game controls
 screen.listen()
@@ -25,6 +30,12 @@ screen.onkey(snake.up, "Up")
 screen.onkey(snake.down, "Down")
 screen.onkey(snake.left, "Left")
 screen.onkey(snake.right, "Right")
+
+def debugger():
+    scoreboard.debug_mode()
+    snake.debug()
+
+screen.onkey(debugger, "d")
 
 
 # Give the user a key to quit the game
@@ -46,12 +57,13 @@ while game_on:
         pizza.refresh(screen_size)
         hunger = 0
 
-    # basilisk.move(screen_size)
+    #basilisk.move(screen_size)
 
     # Detect collision with self
-    for donatello in range(len(snake.nagini) - 1):
-        donatello = snake.nagini[donatello]
+    for segment in range(len(snake.nagini) - 3):
+        donatello = snake.nagini[segment]
         if snake.head.distance(donatello) < 10:
+            print(f"Head: {snake.head.position()} - Segment {segment+1}: {donatello.position()}")
             scoreboard.game_over()
             game_on = False
 

@@ -8,13 +8,20 @@ DOWN = 270
 RIGHT = 0
 SNAKE_COL = "white"
 
+# Variables
+# snake_col = "white"
 
 class Snake:
 
-    def __init__(self, size=2):
+    snake_col: str
+    nagini: list
+
+    def __init__(self, size=7, col="white"):
         """Initialise the snake object"""
         self.nagini = []
+        self.debug_info = []
         self.size = size
+        self.snake_col = col
         for i in range(self.size):
             self.grow()
         self.head = self.nagini[len(self.nagini) - 1]  # Set the lead turtle as the snake 'head'
@@ -26,28 +33,33 @@ class Snake:
             self.nagini[donatello].setpos(self.nagini[donatello + 1].pos())
             self.nagini[donatello].setheading(self.nagini[donatello + 1].heading())
         self.head = self.nagini[len(self.nagini) - 1]
-        if abs(self.head.xcor()) >= edge_limit:
-            if self.head.heading() == LEFT or self.head.heading() == RIGHT:
-                self.head.setx(-self.head.xcor())
-        if abs(self.head.ycor()) >= edge_limit:
-            if self.head.heading() == UP or self.head.heading() == DOWN:
-                self.head.sety(-self.head.ycor())
+
+        if self.head.xcor() >= edge_limit and self.head.heading() == RIGHT:
+            self.head.setx(-(self.head.xcor()+20))
+        if self.head.xcor() <= -edge_limit and self.head.heading() == LEFT:
+            self.head.setx(-(self.head.xcor()-20))
+
+        if self.head.ycor() >= edge_limit and self.head.heading() == UP:
+            self.head.sety(-(self.head.ycor()+20))
+        if self.head.ycor() <= -edge_limit and self.head.heading() == DOWN:
+            self.head.sety(-(self.head.ycor()-20))
+
         self.head.forward(20)
 
-        #Check for weird cross hatching bug and ensure snake is always on same side!
-        if self.head.heading() == LEFT or self.head.heading() == RIGHT:
-            for donatello in range(len(self.nagini) - 1):
-                if self.nagini[donatello].ycor() != self.head.ycor():
-                    self.nagini[donatello].sety(self.head.ycor())
-        if self.head.heading() == UP or self.head.heading() == DOWN:
-            for donatello in range(len(self.nagini) - 1):
-                if self.nagini[donatello].xcor() != self.head.xcor():
-                    self.nagini[donatello].setx(self.head.xcor())
+        # #Check for weird cross hatching bug and ensure snake is always on same side!
+        # if self.head.heading() == LEFT or self.head.heading() == RIGHT:
+        #     for segment in range(len(self.nagini) - 1):
+        #         if self.nagini[segment].ycor() * self.head.ycor() < 0:
+        #             self.nagini[segment].sety(self.head.ycor())
+        # if self.head.heading() == UP or self.head.heading() == DOWN:
+        #     for segment in range(len(self.nagini) - 1):
+        #         if self.nagini[segment].xcor() * self.head.xcor() < 0:
+        #             self.nagini[segment].setx(self.head.xcor())
 
     # Function to grow the snake
     def grow(self):
         donatello = Turtle(shape="square")
-        donatello.color(SNAKE_COL)
+        donatello.color(self.snake_col)
         donatello.shapesize(1)
         donatello.penup()
         if len(self.nagini) > 0:
@@ -78,10 +90,10 @@ class Snake:
         for donatello in self.nagini:   donatello.color("red")
         screen.update()
         time.sleep(0.5)
-        for donatello in self.nagini:   donatello.color(SNAKE_COL)
+        for donatello in self.nagini:   donatello.color(self.snake_col)
         screen.update()
 
-    # Currently unused user controls
+    # Snake jump controls for enemy snake
     def jump_up(self):      self.jump_dir(0, 1)
     def jump_down(self):    self.jump_dir(0, -1)
     def jump_left(self):    self.jump_dir(-1, 0)
@@ -91,3 +103,10 @@ class Snake:
         """Move snake without changing heading"""
         snake_head = self.nagini[len(self.nagini) - 1]
         snake_head.setpos(snake_head.xcor() + x * 20, snake_head.ycor() + y * 20)
+
+    def debug(self):
+        print("=== DEBUGGING REPORT ===")
+        for donatello in self.nagini:
+            print(donatello.pos())
+            self.debug_info.append(donatello.pos())
+        breakpoint()

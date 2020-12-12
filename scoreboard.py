@@ -20,3 +20,8 @@ class Scoreboard(Turtle):
     def game_over(self):
         self.goto(0, 0)
         self.write("GAME OVER!", align="center", font=FONT)
+
+    def debug_mode(self):
+        self.goto(0, 0)
+        self.color("red")
+        self.write("DEBUGGING MODE", True, align="center", font=FONT)
